@@ -1,21 +1,22 @@
 language: android
-sudo: true
-jdk:
-  - oraclejdk8
+jdk: oraclejdk8
+sudo: false
+
 android:
   components:
+    - platform-tools
     - tools
-    - build-tools-24.0.3
-    - android-23
+    - build-tools-24.0.2
+    - android-22
+    - android-24
+    - sys-img-armeabi-v7a-android-22
     - extra-android-m2repository
-    - extra-google-m2repository
-    - extra-google-google_play_services
-env:
-  - JAVA7_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
-services:
-  - mongodb
-addons:
-  apt:
-    packages:
-      - openjdk-7-jre
-      
+
+before_script:
+  # Create and start emulator
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
+script: ./gradlew connectedAndroidTest
