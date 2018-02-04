@@ -1,4 +1,14 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=3d5ff6301917d09108f7208eb433c625ae343e310a96a73c3b99228919e4fbf7
 language: android
+android:
+  components:
+    - build-tools-26.0.2
+    - android-26
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-26
+    - sys-img-armeabi-v7a-android-26
+    - sys-img-armeabi-v7a-android-17
+  script:
+    - cd TrTest
+    - ./gradlew build
