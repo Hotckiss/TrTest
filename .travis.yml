@@ -12,5 +12,4 @@ android:
 before_install:
     - chmod +x gradlew
 script:
-    - cd TrTest
     - ./gradlew build
